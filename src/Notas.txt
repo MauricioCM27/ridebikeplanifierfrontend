@@ -1,1 +1,1 @@
-npm i -s react-router-dom @material-ui/core @material-ui/icons axios
+npm i -s react-router-dom @material-ui/core @material-ui/icons axios @material-ui/pickers
