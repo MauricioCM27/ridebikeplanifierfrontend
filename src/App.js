@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import LoginPage from './pages/login/LoginPage'
-import UsuarioFormPage from './pages/usuarios/formulario/UsuarioFormPage'
+import Login from './components/login/index'
+import UsuarioForm from './components/usuarios/formulario/index'
 import NotFound from './pages/NotFound/NotFound'
 
 // import pruebas from './pages/usuarios/formulario/prueba'
@@ -9,8 +9,9 @@ import NotFound from './pages/NotFound/NotFound'
 const App = () => (
   <BrowserRouter>
     <Switch>
-      <Route exact path="/login" component={LoginPage} />
-      <Route exact path="/registrarse" component={UsuarioFormPage} />
+      <Route exact path="/" component={Login} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/registrarse" component={UsuarioForm} />
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>

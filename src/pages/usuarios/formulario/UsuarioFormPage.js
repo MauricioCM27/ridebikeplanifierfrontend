@@ -38,7 +38,20 @@ const estilos = makeStyles(theme => ({
   },
 }));
 
-export default function CrearCuenta() {
+export default function CrearCuenta(props) {
+  const {
+    correoElectronico,
+    contrasenia,
+    nombre,
+    apellido1,
+    fechaNacimiento,
+    numeroEmergencia,
+    descripcion,
+    padecimientos,
+    onChangeCampo,
+    onCreateUser
+  } = props;
+
   const classes = estilos();
   return (
     <Card className={classes.card}>
@@ -59,10 +72,13 @@ export default function CrearCuenta() {
                   variant="outlined"
                   required
                   fullWidth
+                  autoFocus
                   id="correoElectronico"
                   label="Correo Electrónico"
                   name="email"
                   autoComplete="email"
+                  value={correoElectronico}
+                  onChange={e => onChangeCampo('correoElectronico', e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -75,6 +91,8 @@ export default function CrearCuenta() {
                   type="password"
                   id="contrasenia"
                   autoComplete="current-password"
+                  value={contrasenia}
+                  onChange={e => onChangeCampo('contrasenia', e.target.value)}
                 />
               </Grid>
 
@@ -87,7 +105,8 @@ export default function CrearCuenta() {
                   fullWidth
                   id="nombre"
                   label="Nombre"
-                  autoFocus
+                  value={nombre}
+                  onChange={e => onChangeCampo('nombre', e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -99,15 +118,19 @@ export default function CrearCuenta() {
                   label="Apellido"
                   name="apellido1"
                   autoComplete="lname"
+                  value={apellido1}
+                  onChange={e => onChangeCampo('apellido1', e.target.value)}
                 />
               </Grid>
 
               <Grid item xs={12} sm={6}>
                 <TextField
                   variant="outlined"
-                  id="date"
+                  id="fechaNacimiento"
                   label="Fecha de nacimiento"
                   type="date"
+                  value={fechaNacimiento}
+                  onChange={e => onChangeCampo('fechaNacimiento', e.target.value)}
                   className={classes.textField}
                   InputLabelProps={{
                     shrink: true,
@@ -116,14 +139,18 @@ export default function CrearCuenta() {
 
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  id="numeroEmergencia"
-                  label="Número de teléfono"
-                  name="numeroEmergencia"
-                  autoComplete="lname"
-                />
+                <Tooltip title="Contacto en Caso de Emergencia">
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    id="numeroEmergencia"
+                    label="Telefono de Emergencia"
+                    name="numeroEmergencia"
+                    autoComplete="lname"
+                    value={numeroEmergencia}
+                    onChange={e => onChangeCampo('numeroEmergencia', e.target.value)}
+                  />
+                </Tooltip>
               </Grid>
 
               <Grid item xs={12}>
@@ -134,17 +161,33 @@ export default function CrearCuenta() {
                     id="descripcion"
                     label="Sobre mi"
                     name="descripcion"
+                    value={descripcion}
+                    onChange={e => onChangeCampo('descripcion', e.target.value)}
+                  />
+                </Tooltip>
+              </Grid>
+
+              <Grid item xs={12}>
+                <Tooltip title="Sugerencia: Padecimientos">
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    id="padecimientos"
+                    label="Padecimientos"
+                    name="padecimientos"
+                    value={padecimientos}
+                    onChange={e => onChangeCampo('padecimientos', e.target.value)}
                   />
                 </Tooltip>
               </Grid>
 
             </Grid>
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={onCreateUser}
             >
               Registrarse
           </Button>

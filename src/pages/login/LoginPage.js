@@ -45,7 +45,14 @@ const estilos = makeStyles(theme => ({
     },
 }));
 
-export default function IniciarSesion() {
+export default function IniciarSesion(props) {
+    const {
+        correoElectronico,
+        contrasenia,
+        recordarme,
+        onChangeCampo,
+    } = props;
+
     const classes = estilos();
 
     return (
@@ -70,6 +77,8 @@ export default function IniciarSesion() {
                             name="correoElectronico"
                             autoComplete="email"
                             autoFocus
+                            value={correoElectronico}
+                            onChange={e => onChangeCampo('correoElectronico', e.target.value)}
                         />
                         <TextField
                             variant="outlined"
@@ -81,9 +90,16 @@ export default function IniciarSesion() {
                             type="password"
                             id="contrasenia"
                             autoComplete="current-password"
+                            value={contrasenia}
+                            onChange={e => onChangeCampo('contrasenia', e.target.value)}
                         />
                         <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
+                            control={
+                                <Checkbox
+                                    value={recordarme}
+                                    color="primary"
+                                    onChange={e => onChangeCampo('recordarme', e.target.checked)}
+                                />}
                             label="Recordarme"
                         />
                         <Button
