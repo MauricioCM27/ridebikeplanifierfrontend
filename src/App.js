@@ -1,14 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import UsuarioFormulario from './pages/usuarios/formulario/index';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import LoginPage from './pages/login/LoginPage'
+import UsuarioFormPage from './pages/usuarios/formulario/UsuarioFormPage'
+import NotFound from './pages/NotFound/NotFound'
 
-function App() {
-  return (
-    <React.Fragment>
-      <UsuarioFormulario />
-    </React.Fragment>
-  );
-}
+// import pruebas from './pages/usuarios/formulario/prueba'
+
+const App = () => (
+  <BrowserRouter>
+    <Switch>
+      <Route exact path="/login" component={LoginPage} />
+      <Route exact path="/registrarse" component={UsuarioFormPage} />
+      <Route component={NotFound} />
+    </Switch>
+  </BrowserRouter>
+)
 
 export default App;
