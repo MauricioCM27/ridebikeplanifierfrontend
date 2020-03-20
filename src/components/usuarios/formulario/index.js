@@ -35,7 +35,7 @@ class UsuarioForm extends React.Component {
         } = this.state;
 
         try {
-            await usuariosAPI.usuarios().create({
+            const data = {
                 correoElectronico: correoElectronico,
                 contrasenia: contrasenia,
                 nombre: nombre,
@@ -44,7 +44,9 @@ class UsuarioForm extends React.Component {
                 numeroEmergencia: numeroEmergencia,
                 descripcion: descripcion,
                 padecimientos: padecimientos
-            });
+            };
+            console.log(JSON.stringify(data));
+            await usuariosAPI.usuarios().create(data);
 
         } catch (error) {
             this.setState({ error: error.message });
@@ -54,8 +56,6 @@ class UsuarioForm extends React.Component {
 
     onChangeCampo(campo, valor) {
         this.setState({ [campo]: valor });
-        console.log(campo);
-        console.log(valor);
     }
 
     render() {

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseUrl = "https://localhost:44348/api/";
+const baseUrl = "http://localhost:64813/api/";
+
 
 export default {
     usuarios(url = baseUrl + 'Usuarios/') {
