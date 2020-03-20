@@ -45,9 +45,8 @@ class UsuarioForm extends React.Component {
                 descripcion: descripcion,
                 padecimientos: padecimientos
             };
-            console.log(JSON.stringify(data));
             await usuariosAPI.usuarios().create(data);
-
+            window.location.replace('/login');
         } catch (error) {
             this.setState({ error: error.message });
             console.log(error.message);
