@@ -11,7 +11,7 @@ import {
   Grid,
   Box,
   Typography,
-  Container
+  Container,
 } from "@material-ui/core";
 import LockIcon from "@material-ui/icons/Lock";
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,37 +25,36 @@ const Copyright = () => (
   </Typography>
 );
 
-//Estilos. Deberian de importarse de alguna hoja de estilos
-const estilos = makeStyles(theme => ({
+const estilos = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(3, 0, 2),
   },
   box: {
     bgcolor: "background.paper",
     borderColor: "text.primary",
     m: 1,
     border: 1,
-    style: { width: "5rem", height: "5rem" }
+    style: { width: "5rem", height: "5rem" },
   },
   card: {
     margin: theme.spacing(20, 80, 2),
     padding: theme.spacing(2),
-    borderRadius: 50
-  }
+    borderRadius: 50,
+  },
 }));
 
 export default function IniciarSesion(props) {
@@ -86,7 +85,9 @@ export default function IniciarSesion(props) {
               autoComplete="email"
               autoFocus
               value={correoElectronico}
-              onChange={e => onChangeCampo("correoElectronico", e.target.value)}
+              onChange={(e) =>
+                onChangeCampo("correoElectronico", e.target.value)
+              }
             />
             <TextField
               variant="outlined"
@@ -99,14 +100,16 @@ export default function IniciarSesion(props) {
               id="contrasenia"
               autoComplete="current-password"
               value={contrasenia}
-              onChange={e => onChangeCampo("contrasenia", e.target.value)}
+              onChange={(e) => onChangeCampo("contrasenia", e.target.value)}
             />
             <FormControlLabel
               control={
                 <Checkbox
                   value={recordarme}
                   color="primary"
-                  onChange={e => onChangeCampo("recordarme", e.target.checked)}
+                  onChange={(e) =>
+                    onChangeCampo("recordarme", e.target.checked)
+                  }
                 />
               }
               label="Recordarme"
