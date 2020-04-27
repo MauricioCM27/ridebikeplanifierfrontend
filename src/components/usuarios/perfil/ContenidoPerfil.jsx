@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
-
-const mapURL = `https://maps.googleapis.com/maps/api/js?&key=AIzaSyDjOXNx6Cxhnyovcf5rhsotIUe7fqNYrMo&v=3.exp&libraries=geometry,drawing,places`;
+const key = "AIzaSyDjOXNx6Cxhnyovcf5rhsotIUe7";
+const mapURL = `https://maps.googleapis.com/maps/api/js?&key=${key}fqNYrMo&v=3.exp&libraries=geometry,drawing,places`;
 
 const ContenidoPerfil = () => {
   const classes = useStyles();
