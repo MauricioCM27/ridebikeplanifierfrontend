@@ -2,10 +2,8 @@ import React from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
 
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
@@ -13,8 +11,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
-import InputBase from "@material-ui/core/InputBase";
-import SearchIcon from "@material-ui/icons/Search";
 
 const drawerWidth = 240;
 
@@ -107,15 +103,43 @@ const Sidebar = () => {
         </div>
 
         <Divider />
+
         <List>
-          {["Scrappy", "Se", "La come", "Doblada"].map((text, index) => (
-            <ListItem button key={text}>
+          <Link href="/perfil" passHref>
+            <ListItem component="a" button>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary="Ver Perfil" />
             </ListItem>
-          ))}
+          </Link>
+
+          <Link href="/nuevaRuta" passHref>
+            <ListItem component="a" button>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Crear una Ruta" />
+            </ListItem>
+          </Link>
+
+          <Link href="/unirseRuta" passHref>
+            <ListItem component="a" button>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Unirse a ruta" />
+            </ListItem>
+          </Link>
+
+          <Link href="/verTops" passHref>
+            <ListItem component="a" button>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Ver Tops" />
+            </ListItem>
+          </Link>
         </List>
       </Drawer>
     </div>

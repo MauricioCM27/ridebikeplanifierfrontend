@@ -10,48 +10,44 @@ import {
   Box,
   Typography,
   Tooltip,
-  Container
+  Container,
 } from "@material-ui/core";
 
-import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 
 //Tipografia para el copyright
 const Copyright = () => (
   <Typography variant="body2" color="textSecondary" align="center">
-    {"Copyright © Team patriarca "}
+    {"Copyright © Equipo 4 "}
     {new Date().getFullYear()}
     {"."}
   </Typography>
 );
 
-//Estilos. Pasar a hoja de estilos
-const estilos = makeStyles(theme => ({
+const estilos = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(3, 0, 2),
   },
   card: {
     margin: theme.spacing(15, 80, 2),
     padding: theme.spacing(2),
-    borderRadius: 50
-  }
+    borderRadius: 50,
+  },
 }));
 
 export default function CrearCuenta(props) {
@@ -66,7 +62,7 @@ export default function CrearCuenta(props) {
     padecimientos,
     onChangeCampo,
     onCreateUser,
-    error
+    error,
   } = props;
 
   const classes = estilos();
@@ -83,33 +79,6 @@ export default function CrearCuenta(props) {
 
   return (
     <Card className={classes.card}>
-      {/* <div>
-        {error !== "" && (
-          <Snackbar
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left"
-            }}
-            open={open}
-            autoHideDuration={6000}
-            onClose={handleClose}
-            message={error}
-            action={
-              <React.Fragment>
-                <IconButton
-                  size="small"
-                  aria-label="close"
-                  color="inherit"
-                  onClick={handleClose}
-                >
-                  <CloseIcon fontSize="small" />
-                </IconButton>
-              </React.Fragment>
-            }
-          />
-        )}
-      </div> */}
-
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -132,7 +101,7 @@ export default function CrearCuenta(props) {
                   name="email"
                   autoComplete="email"
                   value={correoElectronico}
-                  onChange={e =>
+                  onChange={(e) =>
                     onChangeCampo("correoElectronico", e.target.value)
                   }
                 />
@@ -148,7 +117,7 @@ export default function CrearCuenta(props) {
                   id="contrasenia"
                   autoComplete="current-password"
                   value={contrasenia}
-                  onChange={e => onChangeCampo("contrasenia", e.target.value)}
+                  onChange={(e) => onChangeCampo("contrasenia", e.target.value)}
                 />
               </Grid>
 
@@ -162,7 +131,7 @@ export default function CrearCuenta(props) {
                   id="nombre"
                   label="Nombre"
                   value={nombre}
-                  onChange={e => onChangeCampo("nombre", e.target.value)}
+                  onChange={(e) => onChangeCampo("nombre", e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -175,7 +144,7 @@ export default function CrearCuenta(props) {
                   name="apellido1"
                   autoComplete="lname"
                   value={apellido1}
-                  onChange={e => onChangeCampo("apellido1", e.target.value)}
+                  onChange={(e) => onChangeCampo("apellido1", e.target.value)}
                 />
               </Grid>
 
@@ -186,12 +155,12 @@ export default function CrearCuenta(props) {
                   label="Fecha de nacimiento"
                   type="date"
                   value={fechaNacimiento}
-                  onChange={e =>
+                  onChange={(e) =>
                     onChangeCampo("fechaNacimiento", e.target.value)
                   }
                   className={classes.textField}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                 />
               </Grid>
@@ -205,7 +174,7 @@ export default function CrearCuenta(props) {
                     name="numeroEmergencia"
                     autoComplete="lname"
                     value={numeroEmergencia}
-                    onChange={e =>
+                    onChange={(e) =>
                       onChangeCampo("numeroEmergencia", e.target.value)
                     }
                   />
@@ -221,7 +190,9 @@ export default function CrearCuenta(props) {
                     label="Sobre mi"
                     name="descripcion"
                     value={descripcion}
-                    onChange={e => onChangeCampo("descripcion", e.target.value)}
+                    onChange={(e) =>
+                      onChangeCampo("descripcion", e.target.value)
+                    }
                   />
                 </Tooltip>
               </Grid>
@@ -235,7 +206,7 @@ export default function CrearCuenta(props) {
                     label="Padecimientos"
                     name="padecimientos"
                     value={padecimientos}
-                    onChange={e =>
+                    onChange={(e) =>
                       onChangeCampo("padecimientos", e.target.value)
                     }
                   />

@@ -1,5 +1,5 @@
 import React from "react";
-import IniciarSesion from "../../pages/login/LoginPage";
+import IniciarSesion from "../../pages/login/LoginPage.jsx";
 
 class Login extends React.Component {
   constructor(props) {
@@ -8,7 +8,7 @@ class Login extends React.Component {
     this.state = {
       correoElectronico: "",
       contrasenia: "",
-      recordarme: false
+      recordarme: false,
     };
 
     this.onChangeCampo = this.onChangeCampo.bind(this);

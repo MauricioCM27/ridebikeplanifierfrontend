@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Avatar,
   Button,
@@ -19,7 +19,7 @@ import { makeStyles } from "@material-ui/core/styles";
 //Tipografia para el copyright
 const Copyright = () => (
   <Typography variant="body2" color="textSecondary" align="center">
-    {"Copyright © Team patriarca "}
+    {"Copyright © Equipo 4  "}
     {new Date().getFullYear()}
     {"."}
   </Typography>
@@ -60,6 +60,33 @@ const estilos = makeStyles((theme) => ({
 export default function IniciarSesion(props) {
   const { correoElectronico, contrasenia, recordarme, onChangeCampo } = props;
 
+  const [error, actualizarError] = useState(false);
+
+  const [sesion, actualizarSesion] = useState({
+    correoElectronico: "",
+    contrasenia: "",
+    recordarme: "false",
+  });
+
+  const handleChange = (e) => {
+    actualizarSesion({
+      ...sesion,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleChecked = () => {};
+
+  const submitSesion = (e) => {
+    e.preventDefault();
+    if (correoElectronico.trim() === "" || contrasenia.trim() === "") {
+      actualizarError(true);
+      return;
+    }
+
+    actualizarError(false);
+  };
+
   const classes = estilos();
 
   return (
@@ -73,7 +100,8 @@ export default function IniciarSesion(props) {
           <Typography component="h1" variant="h5">
             Iniciar Sesión
           </Typography>
-          <form className={classes.form} noValidate>
+
+          <form className={classes.form} onSubmit={submitSesion}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -85,9 +113,7 @@ export default function IniciarSesion(props) {
               autoComplete="email"
               autoFocus
               value={correoElectronico}
-              onChange={(e) =>
-                onChangeCampo("correoElectronico", e.target.value)
-              }
+              onChange={handleChange}
             />
             <TextField
               variant="outlined"
@@ -100,16 +126,15 @@ export default function IniciarSesion(props) {
               id="contrasenia"
               autoComplete="current-password"
               value={contrasenia}
-              onChange={(e) => onChangeCampo("contrasenia", e.target.value)}
+              onChange={handleChange}
             />
             <FormControlLabel
               control={
                 <Checkbox
                   value={recordarme}
+                  name="recordarme"
                   color="primary"
-                  onChange={(e) =>
-                    onChangeCampo("recordarme", e.target.checked)
-                  }
+                  onChange={handleChange}
                 />
               }
               label="Recordarme"
