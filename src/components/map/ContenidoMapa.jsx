@@ -6,6 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import Map from "./Map";
+import MapPrueba from "../../components/map/MapaPrueba";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     borderRadius: 20,
   },
+  appName: {
+    textAlign: "center",
+    color: theme.palette.info.dark,
+  },
 }));
 
 const key = "AIzaSyDjOXNx6Cxhnyovcf5rhsotIUe7";
@@ -56,16 +61,20 @@ const ContenidoPerfil = () => {
     <div className={classes.root}>
       <Card className={classes.card}>
         <Grid container spacing={0}>
+          <div className={classes.appName}>
+            <h1>Crear un Ride</h1>
+          </div>
           <Grid item xs></Grid>
           <Grid justify="center" alignItems="center" item xs={8}>
-            <Map
+            <MapPrueba />
+            {/* <Map
               googleMapURL={mapURL}
               containerElement={
                 <div style={{ marginTop: "50px", height: "500px" }} />
               }
               mapElement={<div style={{ height: "100%" }} />}
               loadingElement={<p>Cargando...</p>}
-            />
+            /> */}
           </Grid>
           <Grid item xs></Grid>
         </Grid>

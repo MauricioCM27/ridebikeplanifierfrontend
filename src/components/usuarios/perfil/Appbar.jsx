@@ -98,6 +98,11 @@ export default function PrimarySearchAppBar() {
     handleMobileMenuClose();
   };
 
+  const salir = () => {
+    localStorage.removeItem("RBP");
+    window.location.replace("/login");
+  };
+
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -114,7 +119,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Mi cuenta</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Salir</MenuItem>
+      <MenuItem onClick={salir}>Salir</MenuItem>
     </Menu>
   );
 
@@ -179,14 +184,9 @@ export default function PrimarySearchAppBar() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={0} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
             <IconButton aria-label="show 17 new notifications" color="inherit">
               {/* Numero de notificaciones */}
-              <Badge badgeContent={10} color="secondary">
+              <Badge badgeContent={1} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>

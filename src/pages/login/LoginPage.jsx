@@ -15,6 +15,7 @@ import {
 } from "@material-ui/core";
 import LockIcon from "@material-ui/icons/Lock";
 import { makeStyles } from "@material-ui/core/styles";
+import usuariosApi from "../../services/usuariosAPI";
 
 //Tipografia para el copyright
 const Copyright = () => (
@@ -75,6 +76,25 @@ export default function IniciarSesion(props) {
     });
   };
 
+  const onLlamada = async () => {
+    try {
+      const usuario = await usuariosApi
+        .usuarios()
+        .login(sesion.correoElectronico, sesion.contrasenia);
+      //window.location.replace("/login");
+
+      if (usuario.data === "") {
+        console.log("scrappy se la come");
+      } else {
+        localStorage.setItem("RBP", JSON.stringify(usuario.data));
+        window.location.replace("/perfil");
+      }
+    } catch (error) {
+      this.setState({ error: error.message });
+    }
+  };
+
+  //Para el recordarme
   const handleChecked = () => {};
 
   const submitSesion = (e) => {
@@ -101,7 +121,7 @@ export default function IniciarSesion(props) {
             Iniciar Sesión
           </Typography>
 
-          <form className={classes.form} onSubmit={submitSesion}>
+          <form className={classes.form} noValidate>
             <TextField
               variant="outlined"
               margin="normal"
@@ -140,11 +160,11 @@ export default function IniciarSesion(props) {
               label="Recordarme"
             />
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={onLlamada}
             >
               Iniciar sesión
             </Button>

@@ -15,7 +15,7 @@ class UsuarioForm extends React.Component {
       numeroEmergencia: "",
       descripcion: "",
       padecimientos: "",
-      error: ""
+      error: "",
     };
 
     this.onChangeCampo = this.onChangeCampo.bind(this);
@@ -31,7 +31,7 @@ class UsuarioForm extends React.Component {
       fechaNacimiento,
       numeroEmergencia,
       descripcion,
-      padecimientos
+      padecimientos,
     } = this.state;
 
     try {
@@ -43,7 +43,7 @@ class UsuarioForm extends React.Component {
         fechaNacimiento: fechaNacimiento,
         numeroEmergencia: numeroEmergencia,
         descripcion: descripcion,
-        padecimientos: padecimientos
+        padecimientos: padecimientos,
       };
       await usuariosAPI.usuarios().create(data);
       window.location.replace("/login");
@@ -66,7 +66,7 @@ class UsuarioForm extends React.Component {
       numeroEmergencia,
       descripcion,
       padecimientos,
-      error
+      error,
     } = this.props;
 
     return (

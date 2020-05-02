@@ -119,7 +119,7 @@ const Sidebar = () => {
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary="Crear una Ruta" />
+              <ListItemText primary="Crear un Ride" />
             </ListItem>
           </Link>
 
@@ -128,7 +128,7 @@ const Sidebar = () => {
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary="Unirse a ruta" />
+              <ListItemText primary="Unirse a un Ride" />
             </ListItem>
           </Link>
 
