@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { Button, TextField, Link, Card } from "@material-ui/core";
+import React, { useState, useContext } from "react";
+import { Button, TextField, Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
-import Map from "./Map";
-import MapPrueba from "../../components/map/MapaPrueba";
+import Mapa from "./Mapa";
+
+import rutaContext from "../../context/Rutas/rutaContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,36 +46,75 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const key = "AIzaSyDjOXNx6Cxhnyovcf5rhsotIUe7";
-const mapURL = `https://maps.googleapis.com/maps/api/js?&key=${key}fqNYrMo&v=3.exp&libraries=geometry,drawing,places`;
-
-const ContenidoPerfil = () => {
+const ContenidoCrearRuta = () => {
   const classes = useStyles();
 
-  const [select, actualizarSelect] = useState("Es publica");
+  //Obtener el state de la ruta del context
+  const rutasContext = useContext(rutaContext);
+  const { rutaId, crearRuta, crearCoordenada } = rutasContext;
 
-  const handleChangeSelect = (e) => {
-    actualizarSelect(e.target.value);
+  //El creador es el usuario en la sesion
+  let datosPerfil = JSON.parse(localStorage.getItem("RBP"));
+
+  //State para le ruta
+  const [ruta, guardarRuta] = useState({
+    creador: datosPerfil.correoElectronico,
+    kilometrosRecorrer: 0,
+    isPublica: true,
+    comentarios: "",
+    fechaSalida: "",
+  });
+
+  //Extraer valores del state
+  const { kilometrosRecorrer, isPublica, comentarios, fechaSalida } = ruta;
+
+  const onChangeCampo = (e) => {
+    if (e.target.name === "kilometrosRecorrer") {
+      guardarRuta({
+        ...ruta,
+        [e.target.name]: parseInt(e.target.value),
+      });
+    } else {
+      guardarRuta({
+        ...ruta,
+        [e.target.name]: e.target.value,
+      });
+    }
+  };
+
+  //Submit de la ruta
+  const onSubmitRuta = (e) => {
+    e.preventDefault();
+    //Validar espacios
+
+    if (kilometrosRecorrer === 0) {
+      console.log("error");
+
+      return;
+    }
+    crearRuta(ruta);
+    console.log(rutaId);
+
+    //crearCoordenada();
+    guardarRuta({
+      kilometrosRecorrer: 0,
+      isPublica: true,
+      comentarios: "",
+      fechaSalida: "",
+    });
+    window.location.replace("/perfil");
   };
 
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
+        <div className={classes.appName}>
+          <h1>Crear un Ride</h1>
+        </div>
         <Grid container spacing={0}>
-          <div className={classes.appName}>
-            <h1>Crear un Ride</h1>
-          </div>
           <Grid item xs></Grid>
           <Grid justify="center" alignItems="center" item xs={8}>
-            <MapPrueba />
-            {/* <Map
-              googleMapURL={mapURL}
-              containerElement={
-                <div style={{ marginTop: "50px", height: "500px" }} />
-              }
-              mapElement={<div style={{ height: "100%" }} />}
-              loadingElement={<p>Cargando...</p>}
-            /> */}
+            <Mapa />
           </Grid>
           <Grid item xs></Grid>
         </Grid>
@@ -94,10 +134,8 @@ const ContenidoPerfil = () => {
                     label="Fecha de salida"
                     name="fechaSalida"
                     autoComplete="email"
-                    //value={correoElectronico}
-                    // onChange={(e) =>
-                    //   onChangeCampo("correoElectronico", e.target.value)
-                    // }
+                    value={fechaSalida}
+                    onChange={onChangeCampo}
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true,
@@ -109,12 +147,12 @@ const ContenidoPerfil = () => {
                     variant="outlined"
                     required
                     fullWidth
-                    name="kmRecorrer"
+                    name="kilometrosRecorrer"
                     label="Km por recorrer"
                     type="number"
-                    id="kmRecorrer"
-                    //value={contrasenia}
-                    //onChange={(e) => onChangeCampo("contrasenia", e.target.value)}
+                    id="kilometrosRecorrer"
+                    value={kilometrosRecorrer}
+                    onChange={onChangeCampo}
                   />
                 </Grid>
 
@@ -123,15 +161,17 @@ const ContenidoPerfil = () => {
                     Es una ruta publica?
                   </InputLabel>
                   <Select
-                    defaultValue="Es publica"
                     id="grouped-select"
+                    name="isPublica"
                     fullWidth
+                    value={isPublica}
                     variant="outlined"
+                    onChange={onChangeCampo}
                   >
-                    <MenuItem value={1} selected>
+                    <MenuItem value={true} selected>
                       Es publica
                     </MenuItem>
-                    <MenuItem value={2}>Es privada</MenuItem>
+                    <MenuItem value={false}>Es privada</MenuItem>
                   </Select>
                 </Grid>
 
@@ -143,8 +183,8 @@ const ContenidoPerfil = () => {
                     id="comentarios"
                     label="Comentarios"
                     name="comentarios"
-                    // value={apellido1}
-                    // onChange={(e) => onChangeCampo("apellido1", e.target.value)}
+                    value={comentarios}
+                    onChange={onChangeCampo}
                   />
                 </Grid>
               </Grid>
@@ -153,7 +193,7 @@ const ContenidoPerfil = () => {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                //onClick={onCreateUser}
+                onClick={onSubmitRuta}
               >
                 Crear ruta
               </Button>
@@ -165,4 +205,4 @@ const ContenidoPerfil = () => {
   );
 };
 
-export default ContenidoPerfil;
+export default ContenidoCrearRuta;

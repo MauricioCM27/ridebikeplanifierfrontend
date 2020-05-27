@@ -132,6 +132,15 @@ const Sidebar = () => {
             </ListItem>
           </Link>
 
+          <Link href="/seguirAmigos" passHref>
+            <ListItem component="a" button>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Seguir Amigos" />
+            </ListItem>
+          </Link>
+
           <Link href="/verTops" passHref>
             <ListItem component="a" button>
               <ListItemIcon>
