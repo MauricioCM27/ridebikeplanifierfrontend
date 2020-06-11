@@ -11,6 +11,7 @@ import {
   ASIGNAR_PARTICIPANTES,
   CARGAR_RUTAS_DE_PARTICIPANTES,
   DEJAR_DE_PARTICIPAR,
+  CARGAR_MIS_RIDES,
 } from "../../types/index";
 
 const RutaState = (props) => {
@@ -19,6 +20,7 @@ const RutaState = (props) => {
     rutas: [],
     coordenadas: [],
     listaparticipantes: [],
+    misRides: [],
   };
   const [state, dispatch] = useReducer(RutaReducer, initialState);
 
@@ -134,6 +136,31 @@ const RutaState = (props) => {
     }
   };
 
+  //Carga los rides que el usuario esta participando
+  const cargarMisRides = async (idUsuario) => {
+    try {
+      const resultado = await clienteAxios.get(
+        `/api/Calificaciones/${idUsuario}`
+      );
+      //console.log(resultado.data);
+
+      dispatch({
+        type: CARGAR_MIS_RIDES,
+        payload: resultado.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const calificarRuta = async (ruta, obj) => {
+    try {
+      await clienteAxios.put(`/api/Calificaciones/${ruta}`, obj);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <RutaContext.Provider
       value={{
@@ -141,6 +168,7 @@ const RutaState = (props) => {
         coordenadas: state.coordenadas,
         rutas: state.rutas,
         listaparticipantes: state.listaparticipantes,
+        misRides: state.misRides,
         cargarRutas,
         crearRuta,
         guardarCoordenadas,
@@ -148,6 +176,8 @@ const RutaState = (props) => {
         participarRide,
         cargarRides,
         dejarParticipar,
+        cargarMisRides,
+        calificarRuta,
       }}
     >
       {props.children}

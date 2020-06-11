@@ -170,9 +170,9 @@ export default function PrimarySearchAppBar() {
       <AppBar position="static">
         <Toolbar>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
+            {/* <div className={classes.searchIcon}>
               <SearchIcon />
-            </div>
+            </div> 
             <InputBase
               placeholder="Buscar amigos…"
               classes={{
@@ -180,13 +180,13 @@ export default function PrimarySearchAppBar() {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
-            />
+            /> */}
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 17 new notifications" color="inherit">
               {/* Numero de notificaciones */}
-              <Badge badgeContent={1} color="secondary">
+              <Badge badgeContent={0} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>

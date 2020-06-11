@@ -5,6 +5,7 @@ import {
   CARGAR_RUTAS_DE_PARTICIPANTES,
   ASIGNAR_PARTICIPANTES,
   DEJAR_DE_PARTICIPAR,
+  CARGAR_MIS_RIDES,
 } from "../../types/index";
 
 export default (state, action) => {
@@ -46,6 +47,12 @@ export default (state, action) => {
         listaparticipantes: state.listaparticipantes.filter(
           (ruta) => ruta !== action.payload
         ),
+      };
+
+    case CARGAR_MIS_RIDES:
+      return {
+        ...state,
+        misRides: [...state.misRides, action.payload],
       };
 
     default:

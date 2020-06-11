@@ -7,8 +7,11 @@ const Ruta = ({ ruta, usuarioSesion }) => {
   const { listaparticipantes, participarRide, dejarParticipar } = rutasContext;
 
   const formato = (texto) => {
-    var d = new Date(texto);
-    return d.getDay() + "/" + d.getMonth() + "/" + d.getFullYear();
+    var aux = texto.replace("T", "-");
+    aux = aux.replace(/:/g, "-");
+    var fecha = aux.split("-");
+
+    return fecha[2] + "-" + fecha[1] + "-" + fecha[0];
   };
 
   const participar = () => {

@@ -56,7 +56,7 @@ const ContenidoCrearRuta = () => {
   //El creador es el usuario en la sesion
   let datosPerfil = JSON.parse(localStorage.getItem("RBP"));
 
-  //State para le ruta
+  //State para la ruta
   const [ruta, guardarRuta] = useState({
     creador: datosPerfil.correoElectronico,
     kilometrosRecorrer: 0,
@@ -102,7 +102,7 @@ const ContenidoCrearRuta = () => {
       comentarios: "",
       fechaSalida: "",
     });
-    window.location.replace("/perfil");
+    window.location.replace("/unirseRuta");
   };
 
   return (

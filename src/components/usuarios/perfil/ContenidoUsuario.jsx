@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect, Fragment } from "react";
 import { Button, TextField, Link, Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -10,6 +10,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+
+import EstadoRuta from "../../rutas/EstadoRuta";
+import rutaContext from "../../../context/Rutas/rutaContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,20 +54,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const columnas = [
+  { id: "creador", label: "Creador", minWidth: 170 },
+  { id: "kilometros", label: "Km recorridos", minWidth: 100 },
+  { id: "fechaSalida", label: "Fecha de salida", minWidth: 150 },
+  { id: "comentarios", label: "Comentarios", minWidth: 200 },
+  { id: "estado", label: "Estado", minWidth: 100 },
+];
+
 const ContenidoUsuario = () => {
   const classes = useStyles();
   let datosPerfil = JSON.parse(localStorage.getItem("RBP"));
 
-  const [select, actualizarSelect] = useState("Es publica");
+  const rutasContext = useContext(rutaContext);
+  const { misRides, cargarMisRides } = rutasContext;
 
-  const handleChangeSelect = (e) => {
-    actualizarSelect(e.target.value);
-  };
+  useEffect(() => {
+    cargarMisRides(datosPerfil.correoElectronico);
+  }, []);
 
   const formato = (texto) => {
-    var d = new Date(texto);
-    return d.getDay() + "/" + d.getMonth() + "/" + d.getFullYear();
+    var aux = texto.replace("T", "-");
+    aux = aux.replace(/:/g, "-");
+    var fecha = aux.split("-");
+
+    return fecha[2] + "-" + fecha[1] + "-" + fecha[0];
   };
+
+  console.log(misRides[0]);
 
   return (
     <div className={classes.root}>
@@ -86,7 +103,7 @@ const ContenidoUsuario = () => {
                 <TableContainer component={Paper}>
                   <Table className={classes.table} aria-label="simple table">
                     <TableBody>
-                      <TableRow>
+                      <TableRow hover>
                         <TableCell component="th" scope="row">
                           Correo Electronico:
                         </TableCell>
@@ -95,7 +112,7 @@ const ContenidoUsuario = () => {
                         </TableCell>
                       </TableRow>
 
-                      <TableRow>
+                      <TableRow hover>
                         <TableCell component="th" scope="row">
                           Fecha de nacimiento:
                         </TableCell>
@@ -104,7 +121,7 @@ const ContenidoUsuario = () => {
                         </TableCell>
                       </TableRow>
 
-                      <TableRow>
+                      <TableRow hover>
                         <TableCell component="th" scope="row">
                           Sobre mi:
                         </TableCell>
@@ -113,7 +130,7 @@ const ContenidoUsuario = () => {
                         </TableCell>
                       </TableRow>
 
-                      <TableRow>
+                      <TableRow hover>
                         <TableCell component="th" scope="row">
                           Numero de Emergencia:
                         </TableCell>
@@ -122,7 +139,7 @@ const ContenidoUsuario = () => {
                         </TableCell>
                       </TableRow>
 
-                      <TableRow>
+                      <TableRow hover>
                         <TableCell component="th" scope="row">
                           Padecimientos:
                         </TableCell>
@@ -134,6 +151,63 @@ const ContenidoUsuario = () => {
                   </Table>
                 </TableContainer>
               </Grid>
+
+              {misRides[0] ? (
+                <Fragment>
+                  <h2>Historial de Rides</h2>
+                  <Grid item xs={12}>
+                    <TableContainer component={Paper}>
+                      <Table
+                        className={classes.table}
+                        aria-label="simple table"
+                      >
+                        <TableHead>
+                          <TableRow>
+                            {columnas.map((columna) => (
+                              <TableCell key={columna.id}>
+                                {columna.label}
+                              </TableCell>
+                            ))}
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {misRides[0].map((miRide) => (
+                            <TableRow hover key={miRide.ruta}>
+                              <TableCell component="th" scope="row">
+                                {miRide.rutaNavigation.creador}
+                              </TableCell>
+                              <TableCell component="th" scope="row">
+                                {miRide.rutaNavigation.kilometrosRecorrer}
+                              </TableCell>
+                              <TableCell component="th" scope="row">
+                                {formato(miRide.rutaNavigation.fechaSalida)}
+                              </TableCell>
+                              <TableCell>
+                                {miRide.rutaNavigation.comentarios.trim() ===
+                                "" ? (
+                                  <p>No hay comentarios</p>
+                                ) : (
+                                  miRide.rutaNavigation.comentarios
+                                )}
+                              </TableCell>
+                              <TableCell>
+                                <EstadoRuta
+                                  fecha={formato(
+                                    miRide.rutaNavigation.fechaSalida
+                                  )}
+                                  ride={miRide}
+                                />
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </Grid>
+                </Fragment>
+              ) : (
+                <p>No hay rides en curso </p>
+              )}
             </Grid>
           </Grid>
         </Grid>
